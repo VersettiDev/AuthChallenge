@@ -2,6 +2,9 @@ package com.Versetti.AuthChallenge.controllers;
 
 import com.Versetti.AuthChallenge.domain.User.User;
 import com.Versetti.AuthChallenge.dtos.AuthDto;
+import com.Versetti.AuthChallenge.dtos.AuthResponse;
+import com.Versetti.AuthChallenge.dtos.UserResponse;
+import com.Versetti.AuthChallenge.infraestructure.utilities.JwtUtils;
 import com.Versetti.AuthChallenge.repositories.UserRepository;
 import com.Versetti.AuthChallenge.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +27,25 @@ public class AuthController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    JwtUtils jwtUtils;
+
     @PostMapping
     public ResponseEntity<?> validateAuthentication (@RequestBody AuthDto authDTO) {
         Map<String, Object> response = userService.validateAuthentication(authDTO);
         if (response.containsKey("message")) {
-//            return ResponseEntity.status(HttpStatus.OK).body(response);
+            // Create Response Dto's
             User userData = userRepository.findByUsername(authDTO.username()).get();
+            String tokenAuth = jwtUtils.generateAuthToken(authDTO.username());
 
+            UserResponse userResponse = new UserResponse(
+                    userData.getId(),
+                    userData.getUsername(),
+                    userData.getEmail()
+            );
+
+            AuthResponse authResponse = new AuthResponse(userResponse, tokenAuth);
+            return ResponseEntity.status(HttpStatus.OK).body(authResponse);
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
