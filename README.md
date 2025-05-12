@@ -12,8 +12,8 @@ Solução implementada para o desafio técnico de autenticação, desenvolvida u
 - H2 Database
 
 ## 🎁 Como Executar
-- 1. Clone o Projeto
-git clone https://github.com/VersettiDev/AuthChallenge.git
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/auth-challenge.git
 cd auth-challenge
-- 2. Execute o projeto:
-mvn spring-boot:run
+```
