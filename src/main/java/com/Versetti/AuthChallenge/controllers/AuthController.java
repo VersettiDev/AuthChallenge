@@ -3,6 +3,7 @@ package com.Versetti.AuthChallenge.controllers;
 import com.Versetti.AuthChallenge.dtos.AuthDto;
 import com.Versetti.AuthChallenge.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,5 +22,10 @@ public class AuthController {
     @PostMapping
     public ResponseEntity<?> validateAuthentication (@RequestBody AuthDto authDTO) {
         Map<String, Object> response = userService.validateAuthentication(authDTO);
+        if (response.containsKey("message")) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 }

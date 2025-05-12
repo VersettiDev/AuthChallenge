@@ -63,7 +63,7 @@ public class UserService {
             }
         }
 
-        response.put("message", "Username or password is incorrect");
+        response.put("error", "Username or password is incorrect");
         return response;
     }
 }
