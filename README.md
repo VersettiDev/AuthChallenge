@@ -1,7 +1,7 @@
 # Auth Challenge - Desafio Técnico
 ## 📚 Descrição
 
-Solução implementada para o desafio técnico de autenticação, desenvolvida utilizando Java Spring Boot. O sistema fornece uma API REST para criar/autenticar usuário retornado seu token e suas informações.
+Solução implementada para o desafio técnico de autenticação, desenvolvida utilizando Java Spring Boot. O sistema fornece uma API REST para criar usuários, obter suas informações salvas e seu token gerado.
 
 ## ⚙️ Stack's utilizadas
 - Java 24
