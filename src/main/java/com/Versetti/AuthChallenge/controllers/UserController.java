@@ -1,9 +1,10 @@
 package com.Versetti.AuthChallenge.controllers;
 
 import com.Versetti.AuthChallenge.dtos.UserDto;
-import com.Versetti.AuthChallenge.repositories.UserRepository;
 import com.Versetti.AuthChallenge.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,12 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    public Map<String, Object> createNewLogin (@RequestBody UserDto userDTO) {
+    public ResponseEntity<?> createNewLogin (@RequestBody UserDto userDTO) {
         Map<String, Object> response = userService.saveNewLogin(userDTO);
+        if (response.containsKey("message")) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 }

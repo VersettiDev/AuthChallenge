@@ -2,6 +2,7 @@ package com.Versetti.AuthChallenge.services;
 
 import com.Versetti.AuthChallenge.domain.User.User;
 import com.Versetti.AuthChallenge.dtos.UserDto;
+import com.Versetti.AuthChallenge.infraestructure.utilities.Base64Utils;
 import com.Versetti.AuthChallenge.repositories.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class UserService {
         BeanUtils.copyProperties(userDTO, userData);
         userData.setPassword(passwordEncoder.encode(userData.getPassword()));
         userRepository.save(userData);
+
+        userData.setPassword(Base64Utils.encode(userData.getPassword()));
+        response.put("message", "User created successfully");
+        response.put("user", userData);
+        return response;
 
     }
 }
