@@ -14,6 +14,24 @@ Solução implementada para o desafio técnico de autenticação, desenvolvida u
 ## 🎁 Como Executar
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/auth-challenge.git
+git clone https://github.com/VersettiDev/AuthChallenge.git
 cd auth-challenge
+```
+2. Execute o projeto:
+``` bash
+mvn spring-boot:run
+```
+- O servidor iniciará em `http://localhost:8080`
+## 🧶 Endpoints Disponíveis
+### 1. Registro de Usuário
+``` 
+POST /v1/user
+```
+**Request:**
+``` json
+{
+    "username": "versetti",
+    "email": "versetti@email.com",
+    "password": "senha123"
+}
 ```
