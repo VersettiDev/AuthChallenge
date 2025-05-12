@@ -93,12 +93,10 @@ POST /auth/login
 O projeto utiliza H2 Database (em memória) para facilitar os testes e a execução local.
 ### Configuração do Banco (application.properties):
 ``` properties
-spring.datasource.url=jdbc:h2:mem:authdb
+spring.datasource.url=jdbc:h2:mem:auth
 spring.datasource.username=admin
 spring.datasource.password=123
 spring.h2.console.enabled=true
 ```
 ## 📄 Licença
 Este projeto está sob a licença MIT.
-## 📞 Contato
-Para dúvidas ou sugestões sobre o desafio, entre em contato através do [LinkedIn](seu-linkedin) ou abra uma issue no repositório.
