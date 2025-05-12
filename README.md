@@ -15,7 +15,7 @@ Solução implementada para o desafio técnico de autenticação, desenvolvida u
 1. Clone o repositório:
 ```bash
 git clone https://github.com/VersettiDev/AuthChallenge.git
-cd auth-challenge
+cd AuthChallenge
 ```
 2. Execute o projeto:
 ``` bash
