@@ -1,6 +1,7 @@
 package com.Versetti.AuthChallenge.services;
 
 import com.Versetti.AuthChallenge.domain.User.User;
+import com.Versetti.AuthChallenge.dtos.AuthDto;
 import com.Versetti.AuthChallenge.dtos.UserDto;
 import com.Versetti.AuthChallenge.infraestructure.utilities.Base64Utils;
 import com.Versetti.AuthChallenge.repositories.UserRepository;
@@ -49,5 +50,20 @@ public class UserService {
         response.put("user", userData);
         return response;
 
+    }
+
+    public Map<String, Object> validateAuthentication (AuthDto authDTO) {
+        Map<String, Object> response = new HashMap<>();
+        if (userRepository.findByUsername(authDTO.username()).isPresent()) {
+            User userData = userRepository.findByUsername(authDTO.username()).get();
+            String decodedPassword = Base64Utils.encode(authDTO.password());
+            if (passwordEncoder.matches(decodedPassword, userData.getPassword())) {
+                response.put("message", "Authentication successful");
+                return response;
+            }
+        }
+
+        response.put("message", "Username or password is incorrect");
+        return response;
     }
 }

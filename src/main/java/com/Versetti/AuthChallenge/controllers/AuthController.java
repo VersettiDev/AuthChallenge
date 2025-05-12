@@ -1,10 +1,25 @@
 package com.Versetti.AuthChallenge.controllers;
 
+import com.Versetti.AuthChallenge.dtos.AuthDto;
+import com.Versetti.AuthChallenge.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("auth/login")
 public class AuthController {
 
+    @Autowired
+    UserService userService;
+
+    @PostMapping
+    public ResponseEntity<?> validateAuthentication (@RequestBody AuthDto authDTO) {
+        Map<String, Object> response = userService.validateAuthentication(authDTO);
+    }
 }
