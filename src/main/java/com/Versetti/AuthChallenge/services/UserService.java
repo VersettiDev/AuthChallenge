@@ -54,9 +54,11 @@ public class UserService {
 
     public Map<String, Object> validateAuthentication (AuthDto authDTO) {
         Map<String, Object> response = new HashMap<>();
+
         if (userRepository.findByUsername(authDTO.username()).isPresent()) {
             User userData = userRepository.findByUsername(authDTO.username()).get();
             String decodedPassword = Base64Utils.decode(authDTO.password());
+
             if (passwordEncoder.matches(decodedPassword, userData.getPassword())) {
                 response.put("message", "Authentication successful");
                 return response;
