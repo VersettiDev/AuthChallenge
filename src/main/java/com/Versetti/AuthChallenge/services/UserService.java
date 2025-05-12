@@ -21,6 +21,12 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    public Map<String, Object> getAllUsers () {
+        Map<String, Object> response = new HashMap<>();
+        response.put("users", userRepository.findAll());
+        return response;
+    }
+
     public Map<String, Object> saveNewLogin (UserDto userDTO) {
         Map<String, Object> response = new HashMap<>();
         if (userRepository.findByUsername(userDTO.username()).isPresent()) {
@@ -35,10 +41,10 @@ public class UserService {
 
         User userData = new User();
         BeanUtils.copyProperties(userDTO, userData);
-        userData.setPassword(passwordEncoder.encode(userData.getPassword()));
+        userData.setPassword(passwordEncoder.encode(userDTO.password()));
         userRepository.save(userData);
 
-        userData.setPassword(Base64Utils.encode(userData.getPassword()));
+        userData.setPassword(Base64Utils.encode(userDTO.password()));
         response.put("message", "User created successfully");
         response.put("user", userData);
         return response;
